@@ -30,7 +30,15 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface.
     --accent: 100.994127, 101.9921351455, 104.9835;
 }
 
-.backgroundContainer, .dialog, .nowPlayingPlaylist, .nowPlayingContextMenu, html {
+.pageTitleWithDefaultLogo {
+    background-image: url(https://r2.radityaharya.me/strm-logo-big.png);
+}
+
+.backgroundContainer,
+.dialog,
+.nowPlayingPlaylist,
+.nowPlayingContextMenu,
+html {
     background-color: #0a0a0a;
 }
 
@@ -59,10 +67,15 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface.
     background-color: rgb(0 0 0 / 0%) !important;
 }
 
+.skinHeader-withBackground {
+    background-color: #0a0a0a;
+}
+
 .headerTop {
     margin-right: 50.500px;
     margin-left: 50.500px;
     margin-top: 15.500px;
+    /* margin-bottom: 10.500px; */
 }
 
 @media only screen and (max-width: 600px) {
@@ -70,6 +83,7 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface.
         margin-right: 5px !important;
         margin-left: 5px !important;
         margin-top: 5px !important;
+        margin-bottom: 5px !important;
     }
 }
 
