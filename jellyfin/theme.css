@@ -1663,6 +1663,11 @@ html {
     padding-top: 40px;
 }
 
+.content-primary, .padded-bottom-page, .page, .pageWithAbsoluteTabs .pageTabContent {
+    padding-bottom: 5em!important;
+    padding-top: 40px;
+}
+
 .layout-desktop .detailRibbon {
     background: rgb(0 0 0 / 0%) !important;
 }
