@@ -1659,6 +1659,10 @@ html {
     }
 }
 
+.sections.homeSectionsContainer {
+    padding-top: 40px;
+}
+
 .layout-desktop .detailRibbon {
     background: rgb(0 0 0 / 0%) !important;
 }
