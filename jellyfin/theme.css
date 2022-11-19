@@ -1,0 +1,145 @@
+/* 
+Based on https://github.com/CTalvio/Ultrachromic
+
+Note: This styesheet mainly fixes minor issues with the mobile web interface.
+*/
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/bottombarprogress.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/titlepage/title_banner-logo.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/type/dark.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/cornerindicator/indicator_corner.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/fields/fields_noborder.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/login/login_frame.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/episodelist/episodes_compactlist.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/rounding.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/base.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/accentlist.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/fixes.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/smallercast.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/header/header_transparent.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/effects/hoverglow.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/effects/glassy.css');
+@import url('https://ctalvio.github.io/Monochromic/backdrop-hack_style.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/fixes.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/smallercast.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/header/header_transparent.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/effects/hoverglow.css');
+@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/effects/glassy.css');
+@import url('https://ctalvio.github.io/Monochromic/backdrop-hack_style.css');
+
+:root {
+    --accent: 100.994127, 101.9921351455, 104.9835;
+}
+
+.backgroundContainer, .dialog, .nowPlayingPlaylist, .nowPlayingContextMenu, html {
+    background-color: #0a0a0a;
+}
+
+.backdropImage {
+    filter: blur(18px);
+}
+
+.backdropImage {
+    filter: saturate(120%);
+}
+
+.backdropImage {
+    filter: contrast(120%);
+}
+
+.backdropImage {
+    filter: brightness(40%);
+}
+
+:root {
+    --rounding: 12px;
+}
+
+
+.skinHeader.semiTransparent {
+    background-color: rgb(0 0 0 / 0%) !important;
+}
+
+.headerTop {
+    margin-right: 50.500px;
+    margin-left: 50.500px;
+    margin-top: 15.500px;
+}
+
+@media only screen and (max-width: 600px) {
+    .headerTop {
+        margin-right: 5px !important;
+        margin-left: 5px !important;
+        margin-top: 5px !important;
+    }
+}
+
+.layout-desktop .detailRibbon {
+    background: rgb(0 0 0 / 0%) !important;
+}
+
+
+@media only screen and (max-width: 40em) {
+    .layout-mobile .detailImageContainer .card {
+        position: absolute !important;
+        top: auto !important;
+    }
+
+    .layout-mobile .mainDetailButtons {
+        background: rgb(0 0 0 / 0%);
+        z-index: 1;
+        margin-left: -.5em;
+        margin-right: -.5em;
+    }
+
+    .layout-mobile .itemMiscInfo,
+    .layout-mobile .itemName,
+    .layout-mobile .mainDetailButtons,
+    .layout-mobile .parentName {
+        -webkit-align-items: center;
+        align-items: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        text-align: start;
+    }
+
+    #itemDetailPage>div.detailPageWrapperContainer.padded-bottom-page>div.detailPagePrimaryContainer.padded-left.padded-right.detailRibbon>div.infoWrapper>div.itemMiscInfo.itemMiscInfo-primary {
+        justify-content: start;
+    }
+
+    .layout-mobile #itemDetailPage .itemName.infoText.parentNameLast {
+        display: block;
+        margin-bottom: 0px !important;
+    }
+
+    #itemDetailPage>div.detailPageWrapperContainer.padded-bottom-page>div.detailPageSecondaryContainer>div>div.detailPagePrimaryContent.padded-right {
+        padding-right: 0%;
+    }
+
+    .layout-mobile .itemBackdrop {
+        background-attachment: scroll;
+        margin-top: 0rem;
+    }
+}
+
+.layout-desktop .detailImageContainer .card {
+    left: 3.3%;
+    max-height: none;
+    top: -80%;
+    width: 24vw;
+}
+
+
+.detailImageContainer .card {
+    position: fixed !important;
+    top: 15% !important;
+}
+
+.detail-clamp-text {
+    text-align: justify !important;
+}
+
+/* x overflow begone */
+.force-scroll {
+    overflow-y: auto;
+    overflow-x: clip;
+}
