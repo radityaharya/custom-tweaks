@@ -1562,6 +1562,7 @@ progress::-webkit-progress-value {
 .layout-mobile .detailPageWrapperContainer {
     margin-top: 0em;
     z-index: 0;
+    padding-top: 0px;
 }
 
 .layout-mobile .detailPagePrimaryContainer {
@@ -1635,12 +1636,16 @@ html {
     background-color: rgb(0 0 0 / 0%) !important;
 }
 
-.skinHeader-withBackground {
+/* .skinHeader-withBackground {
     background-color: #0a0a0a;
+} */
+
+.skinHeader {
+    background-color: #0a0a0a24;
 }
 
-#itemDetailPage .skinHeader {
-    background-color: #0a0a0a00;
+.skinHeader.focuscontainer-x.skinHeader-withBackground.skinHeader-blurred.headroom.headroom--not-bottom.headroom--pinned.headroom--top {
+    background-color: #0a0a0a00 !important;
 }
 
 .headerTop {
@@ -1740,4 +1745,29 @@ html {
 .force-scroll {
     overflow-y: auto;
     overflow-x: clip;
+}
+
+
+/* disable backdrop other than detailsPage in */
+.withSectionTabs .backdropContainer {
+    background: #0a0a0a !important; 
+}
+
+.withSectionTabs .backdropContainer .backdropImage{
+    display: none;
+}
+
+
+/* remove itemBackdrop to fix wacky alignment when backdrop is enabled */
+.layout-desktop .itemBackdrop{
+    background-image: none !important;
+    background-color: transparent !important;
+}
+
+.layout-desktop .itemBackdrop::after{
+    background: transparent !important;
+}
+
+.layout-desktop .detailPageWrapperContainer{
+    padding-top: 0px !important;
 }
