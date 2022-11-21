@@ -60,9 +60,9 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface. an
     display: none !important;
 }
 
-#itemDetailPage .itemName.infoText.parentNameLast {
+/* #itemDetailPage .itemName.infoText.parentNameLast {
     display: none;
-}
+} */
 
 .hide+.detailPageWrapperContainer .itemName {
     display: block !important;
@@ -1659,9 +1659,6 @@ html {
     }
 }
 
-.sections.homeSectionsContainer {
-    padding-top: 40px;
-}
 
 .content-primary, .padded-bottom-page, .page, .pageWithAbsoluteTabs .pageTabContent {
     padding-bottom: 5em!important;
