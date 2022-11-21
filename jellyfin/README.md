@@ -12,6 +12,11 @@ Based on [Ultrachromic](https://github.com/CTalvio/Ultrachromic)
 ```css
 @import url('https://cdn.jsdelivr.net/gh/radityaharya/custom-tweaks@main/jellyfin/theme.css');
 ```
+    or
+```css
+@import url('https://static.radityaharya.me/radityaharya/custom-tweaks/main/jellyfin/theme.css');
+```
+
 **Changes:**
 
 - details page
