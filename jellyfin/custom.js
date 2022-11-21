@@ -94,3 +94,11 @@ var observer = new MutationObserver(function (mutations) {
     }
 });
 observer.observe(document, { subtree: true, childList: true });
+
+// detect ctrl + f and click on search button
+window.addEventListener('keydown', function (event) {
+    if (event.ctrlKey && event.key === 'f') {
+        event.preventDefault();
+        action("Search");
+    }
+}, false);
