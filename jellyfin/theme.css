@@ -542,7 +542,7 @@ progress::-webkit-progress-bar {
     border: 0px solid rgba(255, 255, 255, 0.22);
 }
 
-@import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/login/login_frame.css');
+/* @import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/login/login_frame.css'); */
 
 /*Narrow the login form, size according to display size (bigger on mobile)*/
 #loginPage .readOnlyContent,
