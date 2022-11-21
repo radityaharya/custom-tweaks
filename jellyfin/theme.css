@@ -1753,11 +1753,12 @@ html {
 
 /* disable backdrop other than detailsPage in */
 .withSectionTabs .backdropContainer {
-    background: #0a0a0a !important;
+    background: #0a0a0a !important; 
 }
 
-.withSectionTabs .backdropContainer .backdropImage {
-    display: none;
+.withSectionTabs .backdropContainer .backdropImage{
+    display: none !important;
+    background-image: none !important;
 }
 
 
