@@ -13,7 +13,7 @@ function pageLocation() {
         "tvshows": "/web/index.html#!/tv.html",
         "music": "/web/index.html#!/music.html",
         "details": "/web/index.html#!/details"
-    }
+    };
     var location = window.location.href;
     switch (true) {
         case location.indexOf(locations["home"]) > -1:
@@ -56,7 +56,7 @@ async function JellyfinApi(endpoint, method, data) {
     const response = await fetch(url, options);
     const data_1 = await response.json();
     return data_1;
-}
+};
 
 var getId = function () {
     id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
