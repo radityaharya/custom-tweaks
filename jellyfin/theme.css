@@ -1665,8 +1665,11 @@ html {
 }
 
 
-.content-primary, .padded-bottom-page, .page, .pageWithAbsoluteTabs .pageTabContent {
-    padding-bottom: 5em!important;
+.content-primary,
+.padded-bottom-page,
+.page,
+.pageWithAbsoluteTabs .pageTabContent {
+    padding-bottom: 5em !important;
     padding-top: 40px;
 }
 
@@ -1750,35 +1753,115 @@ html {
 
 /* disable backdrop other than detailsPage in */
 .withSectionTabs .backdropContainer {
-    background: #0a0a0a !important; 
+    background: #0a0a0a !important;
 }
 
-.withSectionTabs .backdropContainer .backdropImage{
+.withSectionTabs .backdropContainer .backdropImage {
     display: none;
 }
 
 
 /* remove itemBackdrop to fix wacky alignment when backdrop is enabled */
-.layout-desktop .itemBackdrop{
+.layout-desktop .itemBackdrop {
     background-image: none !important;
     background-color: transparent !important;
 }
 
-.layout-desktop .itemBackdrop::after{
+.layout-desktop .itemBackdrop::after {
     background: transparent !important;
 }
 
-.layout-desktop .detailPageWrapperContainer{
+.layout-desktop .detailPageWrapperContainer {
     padding-top: 0px !important;
 }
 
 /* disable text selection */
 * {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+
+
+/* queue page */
+.layout-desktop .remoteControlContent {
+    height: 100%;
+    display: flex;
+    align-content: center;
+    align-items: center;
+}
+
+.layout-desktop .nowPlayingInfoContainer {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    align-content: center;
+}
+
+.layout-desktop .nowPlayingInfoControls {
+    width: 100%;
+    height: fit-content;
+}
+
+.layout-desktop .infoContainer {
+    display: flex;
+    align-self: self-start;
+    height: 100%;
+    flex-direction: column-reverse;
+}
+
+.layout-desktop .nowPlayingInfoContainerMedia {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 30px
+}
+
+.layout-desktop .nowPlayingSongName.nowPlayingEpisode {
+    font-size: xx-large
+}
+
+.layout-desktop .nowPlayingAlbum.nowPlayingSeason {
+    font-size: x-large
+}
+
+.layout-desktop .nowPlayingArtist.nowPlayingSerie a {
+    font-size: large
+}
+
+.layout-desktop .nowPlayingInfoButtons * {
+    margin-right: 5px
+}
+
+.layout-desktop .nowPlayingButtonsContainer {
+    margin-top: 15px
+}
+
+.layout-desktop .btnPlayStateCommand.btnStop.autoSize.paper-icon-button-light {
+    display: none
+}
+
+.layout-desktop .remoteControlSection {
+    display: none
+}
+
+.layout-desktop .playlistSection {
+    display: none;
+    margin-left: 5px
+}
+
+.layout-desktop .nowPlayingSecondaryButtons {
+    flex-direction: row-reverse
 }
