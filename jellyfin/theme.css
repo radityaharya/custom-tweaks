@@ -1793,7 +1793,17 @@ html {
                                   supported by Chrome and Opera */
 }
 
+/* enable text selection for titles */
+.withOriginalTitle,
+.originalTitle {
+    user-select: text !important;
+    cursor: pointer
+}
 
+::selection {
+    background: #0a0a0a78;
+    color: #fff;
+}
 
 /* queue page */
 .layout-desktop .remoteControlContent {
