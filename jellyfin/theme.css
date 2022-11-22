@@ -1794,8 +1794,7 @@ html {
 }
 
 /* enable text selection for titles */
-.withOriginalTitle,
-.originalTitle {
+.itemName.infoText {
     user-select: text !important;
     cursor: pointer
 }

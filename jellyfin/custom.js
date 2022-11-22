@@ -73,42 +73,65 @@ function getTitles() {
     }
 }
 
-window.onload = function () {
-    console.log('CUSTOM:window loaded');
-    setTimeout(function () {
-        getTitles();
-    }
-        , 5000);
-}
-
-const copyTextContent = function(element) {
+const copyTextContent = function (element) {
     var text = element.textContent;
     navigator.clipboard.writeText(text);
 }
 
-function detailsPageScripts(){
-    document.getElementsByClassName("originalTitle")[0].addEventListener("click", function() {
-        copyTextContent(this);
-    });
-    document.getElementsByClassName("withOriginalTitle")[0].addEventListener("click", function() {
-        copyTextContent(this);
-    });
+var isPageReady = async function () {
+    while (true) {
+        await new Promise(r => setTimeout(r, 500));
+        if (pageLocation() == "details") {
+            try {
+                if (document.getElementsByClassName("mediaInfoItem")[0].textContent) {
+                    console.log("CUSTOM: page ready");
+                    console.log(document.getElementsByClassName("mediaInfoItem")[0].textContent);
+                    await new Promise(r => setTimeout(r, 1000));
+                    return true;
+                }
+            }
+            catch (error) {
+
+            }
+        }
+        await new Promise(r => setTimeout(r, 500));
+    }
+}
+
+function detailsPageScripts() {
+    parentNameLast = document.getElementsByClassName("infoText");
+    for (var i = 0; i < parentNameLast.length; i++) {
+        parentNameLast[i].addEventListener("click", function () {
+            copyTextContent(this);
+        });
+    }
 }
 
 var previousUrlWithQuery = window.location.href;
-var observer = new MutationObserver(function(mutations) {
+var observer = new MutationObserver(function (mutations) {
     if (window.location.href != previousUrlWithQuery) {
         console.log('CUSTOM:query parameter changed');
         previousUrlWithQuery = window.location.href;
-        setTimeout(function() {
+        isPageReady().then(function () {
             if (pageLocation() == "details") {
                 detailsPageScripts();
             }
         }
-            , 1000);
+        );
     }
 });
 observer.observe(document, { subtree: true, childList: true });
+
+
+
+window.onload = function () {
+    console.log('CUSTOM:window loaded');
+    isPageReady().then(function () {
+        if (pageLocation() == "details") {
+            detailsPageScripts();
+        }
+    });
+}
 
 // detect ctrl + f and click on search button
 window.addEventListener('keydown', function (event) {
@@ -117,4 +140,3 @@ window.addEventListener('keydown', function (event) {
         action("Search");
     }
 }, false);
-
