@@ -1880,10 +1880,10 @@ html {
 .headerLeft {
     background: #0a0a0a78;
     padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
     border-radius: 50px;
-    max-width: min-content
+    max-width: fit-content
 }
 
 .headerTop {
