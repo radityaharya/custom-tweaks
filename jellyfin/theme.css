@@ -1890,3 +1890,8 @@ html {
     display:flex;
     justify-content: space-between;
 }
+
+/* hide shuffle button cuz i dont use it */
+.btnShuffle.detailButton{
+    display:none
+}
