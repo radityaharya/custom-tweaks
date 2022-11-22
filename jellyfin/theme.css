@@ -1895,3 +1895,12 @@ html {
 .btnShuffle.detailButton{
     display:none
 }
+
+/* disable element dragging */
+* {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+  }
