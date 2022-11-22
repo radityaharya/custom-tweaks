@@ -58,19 +58,33 @@ async function JellyfinApi(endpoint, method, data) {
     return data_1;
 };
 
+
 var getId = function () {
     id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
     return id;
 }
 
-function getTitles() {
-    if (pageLocation() == "details") {
-        item = JellyfinApi('/Users/' + userId + '/Items/' + getId(), 'GET');
-        console.log("CUSTOM: making request to: " + '/Users/' + userId + '/Items/' + getId());
-        item.then(function (data) {
-            // alert(data["Name"]);
-        });
-    }
+function addStatus() {
+    var item = JellyfinApi('/Users/' + userId + '/Items/' + getId(), 'GET');
+    var itemMiscInfo = document.querySelectorAll('.itemMiscInfo-primary');
+    item.then(function (data) {
+        var status = data["Status"];
+        var statusElement = document.createElement("div");
+        statusElement.className = "mediaInfoItem";
+        statusElement.innerHTML = '<div class="mediaInfoValue status">' + status + '</div>';
+        var color = function () {
+            switch (status) {
+                case "Ended":
+                    return "red";
+                default:
+                    return "green";
+            }
+        }
+        statusElement.style = "background-color: " + color() + "; color: white; border-radius: 5px; padding: 0px 5px 0px 5px; margin-left: 5px;";
+        if (itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
+            itemMiscInfo[itemMiscInfo.length - 1].prepend(statusElement);
+        }
+    });
 }
 
 const copyTextContent = function (element) {
@@ -105,6 +119,7 @@ function detailsPageScripts() {
             copyTextContent(this);
         });
     }
+    addStatus();
 }
 
 var previousUrlWithQuery = window.location.href;

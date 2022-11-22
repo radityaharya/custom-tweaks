@@ -35,10 +35,17 @@ Adds features such as:
 - jellyfinApi calls
 - per page function calls
 - copy title on click
+- status indicator
+  ![Alt text](img/status_indicator.jpg)
 - new features coming soon (maybe, idk what to add)
 
 **How to:**
 - Add script to ```/usr/share/jellyfin/web/```
-- Add ```<script defer="defer" src="custom.js"></script>``` to the index.html header
+- Add ```<script defer="defer" src="custom.js"></script>``` to the index.html head section
+ 
+  or
+
+  Add ```<script defer="defer" src="https://static.radityaharya.me/radityaharya/custom-tweaks/main/jellyfin/custom.js"></script>``` to the index.html head section 
+
 
 
