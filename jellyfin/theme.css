@@ -1866,3 +1866,27 @@ html {
 .layout-desktop .nowPlayingSecondaryButtons {
     flex-direction: row-reverse
 }
+
+
+/* header left-right */
+.headerRight {
+    background:#0a0a0a78;
+    padding: 5px;
+    padding-left:10px;
+    padding-right:10px;
+    border-radius:50px
+}
+
+.headerLeft {
+    background:#0a0a0a78;
+    padding: 5px;
+    padding-left:10px;
+    padding-right:10px;
+    border-radius:50px;
+    max-width:min-content
+}
+
+.headerTop{
+    display:flex;
+    justify-content: space-between;
+}
