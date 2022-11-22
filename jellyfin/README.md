@@ -34,6 +34,7 @@ Adds features such as:
 - ctrl+f hotkey
 - jellyfinApi calls
 - per page function calls
+- copy title on click
 - new features coming soon (maybe, idk what to add)
 
 **How to:**
