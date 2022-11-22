@@ -1753,10 +1753,10 @@ html {
 
 /* disable backdrop other than detailsPage in */
 .withSectionTabs .backdropContainer {
-    background: #0a0a0a !important; 
+    background: #0a0a0a !important;
 }
 
-.withSectionTabs .backdropContainer .backdropImage{
+.withSectionTabs .backdropContainer .backdropImage {
     display: none !important;
     background-image: none !important;
 }
@@ -1870,30 +1870,30 @@ html {
 
 /* header left-right */
 .headerRight {
-    background:#0a0a0a78;
+    background: #0a0a0a78;
     padding: 5px;
-    padding-left:10px;
-    padding-right:10px;
-    border-radius:50px
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px
 }
 
 .headerLeft {
-    background:#0a0a0a78;
+    background: #0a0a0a78;
     padding: 5px;
-    padding-left:10px;
-    padding-right:10px;
-    border-radius:50px;
-    max-width:min-content
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    max-width: min-content
 }
 
-.headerTop{
-    display:flex;
+.headerTop {
+    display: flex;
     justify-content: space-between;
 }
 
 /* hide shuffle button cuz i dont use it */
-.btnShuffle.detailButton{
-    display:none
+.btnShuffle.detailButton {
+    display: none
 }
 
 /* disable element dragging */
@@ -1903,4 +1903,9 @@ html {
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
-  }
+}
+
+/* make button round */
+.detailButton.emby-button {
+    border-radius: 100px !important
+}
