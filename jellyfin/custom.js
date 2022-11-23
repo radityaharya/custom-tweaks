@@ -88,11 +88,11 @@ async function anilistAPI(aid) {
       }
     }
     `;
-
+    
     var variables = {
         id: aid
     };
-
+    
     var url = 'https://graphql.anilist.co',
         options = {
             method: 'POST',
@@ -105,7 +105,7 @@ async function anilistAPI(aid) {
                 variables: variables
             })
         };
-
+        
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
@@ -172,6 +172,32 @@ function addStaff(item) {
                 }
             });
         }
+});
+}
+
+function addNextAiring(item){
+    item.then(function (data) {
+        if (data["ProviderIds"]["AniList"]) {
+            anilistAPI(data["ProviderIds"]["AniList"]).then(function (anidata) {
+                var itemMiscInfo = document.querySelectorAll('#itemDetailPage:not(.hide) .itemMiscInfo-primary');
+                var nextAiring = anidata["data"]["Media"]["nextAiringEpisode"];
+                if (nextAiring) {
+                    var timeUntilAiring = nextAiring["timeUntilAiring"];
+                    var clientTime = new Date().getTime();
+                    var airingAt = clientTime + timeUntilAiring * 1000;
+                    var airingAtDate = new Date(airingAt);
+                    var day = airingAtDate.toLocaleString('en-us', { weekday: 'long' });
+                    var date = airingAtDate.toLocaleString('en-us', { day: 'numeric' });
+                    var month = airingAtDate.toLocaleString('en-us', { month: 'long' });
+                    var year = airingAtDate.toLocaleString('en-us', { year: 'numeric' });
+
+                    var airingAtString = day + ", " + date + " " + month + " " + year + " " + airingAtDate.toLocaleTimeString();
+                    var seriesAirTimeElement = document.querySelectorAll('#itemDetailPage:not(.hide) #seriesAirTime');
+                    seriesAirTimeElement[0].innerHTML = "Next episode (episode " + nextAiring["episode"] + ")"+ " is airing at " + "<span><strong>" + airingAtString + "</strong></span>";
+                    seriesAirTimeElement.childList[0].querySelectorAll("a").remove();
+                }
+            });
+        }
     });
 }
 
@@ -209,6 +235,7 @@ function detailsPageScripts() {
     var item = JellyfinApi('/Users/' + userId + '/Items/' + getId(), 'GET');
     addStatus(item);
     addStaff(item);
+    addNextAiring(item);
 }
 
 var previousUrlWithQuery = window.location.href;
