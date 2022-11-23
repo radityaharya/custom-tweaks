@@ -69,20 +69,24 @@ function addStatus() {
     var itemMiscInfo = document.querySelectorAll('.itemMiscInfo-primary');
     item.then(function (data) {
         var status = data["Status"];
-        var statusElement = document.createElement("div");
-        statusElement.className = "mediaInfoItem";
-        statusElement.innerHTML = '<div class="mediaInfoValue status">' + status + '</div>';
-        var color = function () {
-            switch (status) {
-                case "Ended":
-                    return "red";
-                default:
-                    return "green";
+        if (status) {
+            var statusElement = document.createElement("div");
+            statusElement.className = "mediaInfoItem";
+            statusElement.innerHTML = '<div class="mediaInfoValue status">' + status + '</div>';
+            var color = function () {
+                switch (status) {
+                    case "Ended":
+                        return "red";
+                    case "Continuing":
+                        return "green";
+                    default:
+                        return "grey";
+                }
             }
-        }
-        statusElement.style = "background-color: " + color() + "; color: white; border-radius: 5px; padding: 0px 5px 0px 5px; margin-left: 5px;";
-        if (itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
-            itemMiscInfo[itemMiscInfo.length - 1].prepend(statusElement);
+            statusElement.style = "background-color: " + color() + "; color: white; border-radius: 5px; padding: 0px 5px 0px 5px; margin-left: 5px;";
+            if (itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
+                itemMiscInfo[itemMiscInfo.length - 1].prepend(statusElement);
+            }
         }
     });
 }
