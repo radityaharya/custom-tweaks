@@ -1,5 +1,6 @@
 //@radityaharya
 // still dunno whut to do with this, probably will be used to add custom elements to the page
+// very janky
 var credentials = JSON.parse(localStorage.getItem('jellyfin_credentials'));
 var accessToken = credentials["Servers"][0]["AccessToken"];
 var userId = credentials["Servers"][0]["UserId"];
@@ -12,7 +13,8 @@ function pageLocation() {
         "movies": "/web/index.html#!/movies.html",
         "tvshows": "/web/index.html#!/tv.html",
         "music": "/web/index.html#!/music.html",
-        "details": "/web/index.html#!/details"
+        "details": "/web/index.html#!/details",
+        "queue": "/web/index.html#!/queue"
     };
     var location = window.location.href;
     switch (true) {
@@ -26,6 +28,8 @@ function pageLocation() {
             return "music";
         case location.indexOf(locations["details"]) > -1:
             return "details";
+        case location.indexOf(locations["queue"]) > -1:
+            return "queue";
         default:
             return "home";
     }
@@ -88,11 +92,11 @@ async function anilistAPI(aid) {
       }
     }
     `;
-    
+
     var variables = {
         id: aid
     };
-    
+
     var url = 'https://graphql.anilist.co',
         options = {
             method: 'POST',
@@ -105,7 +109,7 @@ async function anilistAPI(aid) {
                 variables: variables
             })
         };
-        
+
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
@@ -172,10 +176,10 @@ function addStaff(item) {
                 }
             });
         }
-});
+    });
 }
 
-function addNextAiring(item){
+function addNextAiring(item) {
     item.then(function (data) {
         if (data["ProviderIds"]["AniList"]) {
             anilistAPI(data["ProviderIds"]["AniList"]).then(function (anidata) {
@@ -193,12 +197,38 @@ function addNextAiring(item){
 
                     var airingAtString = day + ", " + date + " " + month + " " + year + " " + airingAtDate.toLocaleTimeString();
                     var seriesAirTimeElement = document.querySelectorAll('#itemDetailPage:not(.hide) #seriesAirTime');
-                    seriesAirTimeElement[0].innerHTML = "Next episode (episode " + nextAiring["episode"] + ")"+ " is airing at " + "<span><strong>" + airingAtString + "</strong></span>";
+                    seriesAirTimeElement[0].innerHTML = "Next episode (episode " + nextAiring["episode"] + ")" + " is airing at " + "<span><strong>" + airingAtString + "</strong></span>";
                     seriesAirTimeElement.childList[0].querySelectorAll("a").remove();
                 }
             });
         }
     });
+}
+
+function addFullscreenButton() {
+    var nowPlayingSecondaryButtons = document.querySelectorAll('.nowPlayingSecondaryButtons');
+    var fullscreenButton = document.createElement("button");
+    fullscreenButton.className = "videoButton btnPlayStateCommand autoSize paper-icon-button-light"
+    fullscreenButton.attributes = "is='paper-icon-button-light'";
+    var icon = document.createElement("span");
+    icon.className = "material-icons fullscreenIcon";
+    icon.innerHTML = "fullscreen";
+    fullscreenButton.appendChild(icon);
+    fullscreenButton.onclick = function () {
+        var elem = document.documentElement;
+        if (!document.fullscreenElement) {
+            elem.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    }
+    if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
+        nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
+    }
 }
 
 const copyTextContent = function (element) {
@@ -219,6 +249,15 @@ var isPageReady = async function () {
             catch (error) {
 
             }
+        } else {
+            try {
+                if (document.querySelectorAll('.nowPlayingEpisode').length > 0) {
+                    console.log("CUSTOM: page ready");
+                    return true;
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
         await new Promise(r => setTimeout(r, 500));
     }
@@ -238,14 +277,24 @@ function detailsPageScripts() {
     addNextAiring(item);
 }
 
+function queuePageScripts() {
+    console.log("CUSTOM: queue page scripts");
+    addFullscreenButton();
+}
+
 var previousUrlWithQuery = window.location.href;
 var observer = new MutationObserver(function (mutations) {
     if (window.location.href != previousUrlWithQuery) {
         console.log('CUSTOM:query parameter changed');
         previousUrlWithQuery = window.location.href;
+        console.log(window.location.href);
         isPageReady().then(function () {
             if (pageLocation() == "details") {
                 detailsPageScripts();
+            }
+            else if (pageLocation() == "queue") {
+                console.log("CUSTOM: queue page");
+                queuePageScripts();
             }
         }
         );
