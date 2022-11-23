@@ -37,6 +37,9 @@ Adds features such as:
 - copy title on click
 - status indicator
   ![Alt text](img/status_indicator.jpg)
+- staff list
+  ![Alt text](img/staff_list.jpg)
+- next episode air date
 - new features coming soon (maybe, idk what to add)
 
 **How to:**
