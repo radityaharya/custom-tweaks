@@ -58,15 +58,66 @@ async function JellyfinApi(endpoint, method, data) {
     return data_1;
 };
 
+async function anilistAPI(aid) {
+    var query = `
+    query ($id: Int) { # Define which variables will be used in the query (id)
+      Media (id: $id, type: ANIME) { # Insert our variables into the query arguments (id) (type: ANIME is hard-coded in the query)
+        id
+        bannerImage
+        episodes
+        duration
+        averageScore
+        isAdult
+        nextAiringEpisode {
+            airingAt
+            timeUntilAiring
+            episode
+        }
+        staff {
+            edges {
+                role
+                node {
+                    name {
+                        full
+                    }
+                    id
+                    siteUrl
+                }
+            }
+        }
+      }
+    }
+    `;
+
+    var variables = {
+        id: aid
+    };
+
+    var url = 'https://graphql.anilist.co',
+        options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({
+                query: query,
+                variables: variables
+            })
+        };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+}
 
 var getId = function () {
     id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
     return id;
 }
 
-function addStatus() {
-    var item = JellyfinApi('/Users/' + userId + '/Items/' + getId(), 'GET');
-    var itemMiscInfo = document.querySelectorAll('.itemMiscInfo-primary');
+function addStatus(item) {
+    var itemMiscInfo = document.querySelectorAll('#itemDetailPage:not(.hide) .itemMiscInfo-primary');
     item.then(function (data) {
         var status = data["Status"];
         if (status) {
@@ -91,6 +142,39 @@ function addStatus() {
     });
 }
 
+function addStaff(item) {
+    item.then(function (data) {
+        if (data["ProviderIds"]["AniList"]) {
+            anilistAPI(data["ProviderIds"]["AniList"]).then(function (anidata) {
+                var itemDetailsGroups = document.querySelectorAll('#itemDetailPage:not(.hide) .itemDetailsGroup');
+                if (itemDetailsGroups[0].querySelectorAll("#itemDetailPage:not(.hide) .directorsGroup:not(.hide)").length > 0) {
+                    return;
+                }
+                console.log(anidata);
+                var stafItems = anidata["data"]["Media"]["staff"]["edges"];
+                for (var i = 0; i < stafItems.length; i++) {
+                    if (stafItems[i]["role"] != "Director" && stafItems[i]["role"] != "Original Creator") {
+                        continue;
+                    }
+                    var detailsGroupItem = document.createElement("div");
+                    detailsGroupItem.className = "detailsGroupItem directorsGroup";
+                    var directorsLabel = document.createElement("div");
+                    directorsLabel.className = "directorsLabel label";
+                    directorsLabel.innerHTML = stafItems[i]["role"];
+                    var directorsValue = document.createElement("div");
+                    directorsValue.className = "directors content focuscontainer-x";
+                    directorsValue.innerHTML = stafItems[i]["node"]["name"]["full"];
+                    directorsValue.style = "cursor: pointer;";
+                    directorsValue.setAttribute("onclick", "window.open('" + stafItems[i]["node"]["siteUrl"] + "', '_blank')");
+                    detailsGroupItem.appendChild(directorsLabel);
+                    detailsGroupItem.appendChild(directorsValue);
+                    itemDetailsGroups[0].appendChild(detailsGroupItem);
+                }
+            });
+        }
+    });
+}
+
 const copyTextContent = function (element) {
     var text = element.textContent;
     navigator.clipboard.writeText(text);
@@ -101,10 +185,8 @@ var isPageReady = async function () {
         await new Promise(r => setTimeout(r, 500));
         if (pageLocation() == "details") {
             try {
-                if (document.getElementsByClassName("mediaInfoItem")[0].textContent) {
+                if (document.querySelectorAll('#itemDetailPage:not(.hide) .mediaInfoItem').length > 0) {
                     console.log("CUSTOM: page ready");
-                    console.log(document.getElementsByClassName("mediaInfoItem")[0].textContent);
-                    await new Promise(r => setTimeout(r, 1000));
                     return true;
                 }
             }
@@ -117,13 +199,16 @@ var isPageReady = async function () {
 }
 
 function detailsPageScripts() {
+    console.log("CUSTOM: details page scripts");
     parentNameLast = document.getElementsByClassName("infoText");
     for (var i = 0; i < parentNameLast.length; i++) {
         parentNameLast[i].addEventListener("click", function () {
             copyTextContent(this);
         });
     }
-    addStatus();
+    var item = JellyfinApi('/Users/' + userId + '/Items/' + getId(), 'GET');
+    addStatus(item);
+    addStaff(item);
 }
 
 var previousUrlWithQuery = window.location.href;
