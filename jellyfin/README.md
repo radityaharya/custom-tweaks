@@ -40,6 +40,8 @@ Adds features such as:
 - staff list
   ![Alt text](img/staff_list.jpg)
 - next episode air date
+- hero section on home page (very janky)
+  ![Alt text](img/hero_section.jpg)
 - new features coming soon (maybe, idk what to add)
 
 **How to:**

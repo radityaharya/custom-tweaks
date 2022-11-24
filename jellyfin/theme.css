@@ -1918,3 +1918,95 @@ html {
 .detailButton.emby-button {
     border-radius: 100px !important
 }
+
+#indexPage {
+    padding-top: 0em !important;
+}
+
+#indexPage .tabContent {
+    padding-top: 5em !important;
+}
+.heroContainer {
+    /* gradient botom to top #0a0a0a short*/
+    min-height: 14em;
+    background-color: linear-gradient(rgba(10, 10, 10, 0.5), rgba(10, 10, 10, 0.5));
+}
+
+
+
+.noHomeButtonHeader {
+    background: none !important;
+    background-color: transparent !important;
+}
+
+.heroBackground {
+    height: 55vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+    animation: fadein 1s;
+    -webkit-animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    -o-animation: fadein 1s;
+    -ms-animation: fadein 1s;
+    
+}
+
+.heroContainer .heroContent {
+    padding-top: 4em;
+    padding-bottom: 4em;
+    position: absolute;
+    top: 9vh;
+    z-index: 2;
+}
+
+.heroDescription {
+    font-size: 1em;
+    font-weight: 300;
+    max-width: 50%;
+    text-shadow:
+  2.8px 2.8px 2.2px rgb(0, 0, 0),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+  100px 100px 80px rgba(0, 0, 0, 0.07)
+;
+
+}
+
+.layout-mobile .heroDescription {
+    max-width: 100%
+}
+
+.heroTitle {
+    font-size: 2em;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    text-shadow:
+  2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
+  6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
+  12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
+  22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
+  41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
+  100px 100px 80px rgba(0, 0, 0, 0.07)
+;
+
+}
+
+.heroLogo {
+    height: 150px;
+}
+
+.layout-mobile .heroLogo {
+    height: 80px;
+}
+
+.heroLogo img {
+    max-height: 100%;
+    max-width: 100%;
+}
