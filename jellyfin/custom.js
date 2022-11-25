@@ -5,7 +5,7 @@ var accessToken = credentials["Servers"][0]["AccessToken"];
 var userId = credentials["Servers"][0]["UserId"];
 var deviceId = Object.keys(localStorage).filter(function (key) { return key.indexOf("deviceId") > -1; })[0]; deviceId = localStorage.getItem(deviceId);
 var server = window.location.origin;
-var heroHasRun = false;
+let heroHasRun = false;
 
 function pageLocation() {
     var locations = {
@@ -183,20 +183,19 @@ function addNextAiring(item) {
     item.then(function (data) {
         if (data["ProviderIds"]["AniList"]) {
             anilistAPI(data["ProviderIds"]["AniList"]).then(function (anidata) {
-                var itemMiscInfo = document.querySelectorAll('#itemDetailPage:not(.hide) .itemMiscInfo-primary');
-                var nextAiring = anidata["data"]["Media"]["nextAiringEpisode"];
+                let itemMiscInfo = document.querySelectorAll('#itemDetailPage:not(.hide) .itemMiscInfo-primary');
+                let nextAiring = anidata["data"]["Media"]["nextAiringEpisode"];
                 if (nextAiring) {
-                    var timeUntilAiring = nextAiring["timeUntilAiring"];
-                    var clientTime = new Date().getTime();
-                    var airingAt = clientTime + timeUntilAiring * 1000;
-                    var airingAtDate = new Date(airingAt);
-                    var day = airingAtDate.toLocaleString('en-us', { weekday: 'long' });
-                    var date = airingAtDate.toLocaleString('en-us', { day: 'numeric' });
-                    var month = airingAtDate.toLocaleString('en-us', { month: 'long' });
-                    var year = airingAtDate.toLocaleString('en-us', { year: 'numeric' });
-
-                    var airingAtString = day + ", " + date + " " + month + " " + year + " " + airingAtDate.toLocaleTimeString();
-                    var seriesAirTimeElement = document.querySelectorAll('#itemDetailPage:not(.hide) #seriesAirTime');
+                    let timeUntilAiring = nextAiring["timeUntilAiring"];
+                    let clientTime = new Date().getTime();
+                    let airingAt = clientTime + timeUntilAiring * 1000;
+                    let airingAtDate = new Date(airingAt);
+                    let day = airingAtDate.toLocaleString('en-us', { weekday: 'long' });
+                    let date = airingAtDate.toLocaleString('en-us', { day: 'numeric' });
+                    let month = airingAtDate.toLocaleString('en-us', { month: 'long' });
+                    let year = airingAtDate.toLocaleString('en-us', { year: 'numeric' });
+                    let airingAtString = day + ", " + date + " " + month + " " + year + " " + airingAtDate.toLocaleTimeString();
+                    let seriesAirTimeElement = document.querySelectorAll('#itemDetailPage:not(.hide) #seriesAirTime');
                     seriesAirTimeElement[0].innerHTML = "Next episode (episode " + nextAiring["episode"] + ")" + " is airing at " + "<span><strong>" + airingAtString + "</strong></span>";
                     seriesAirTimeElement.childList[0].querySelectorAll("a").remove();
                 }
@@ -206,15 +205,14 @@ function addNextAiring(item) {
 }
 
 function addFullscreenButton() {
-    var nowPlayingSecondaryButtons = document.querySelectorAll('.nowPlayingSecondaryButtons');
-    var fullscreenButton = document.createElement("button");
+    let nowPlayingSecondaryButtons = document.querySelectorAll('.nowPlayingSecondaryButtons');
+    let fullscreenButton = document.createElement("button");
     fullscreenButton.className = "videoButton btnPlayStateCommand autoSize paper-icon-button-light"
     fullscreenButton.attributes = "is='paper-icon-button-light'";
-    var icon = document.createElement("span");
+    let icon = document.createElement("span");
     icon.className = "material-icons fullscreenIcon";
     icon.innerHTML = "fullscreen";
     fullscreenButton.appendChild(icon);
-    // on click send fullscreen command to whole page
     fullscreenButton.onclick = function () {
         var elem = document.documentElement;
         if (!document.fullscreenElement) {
@@ -227,49 +225,47 @@ function addFullscreenButton() {
             }
         }
     }
-    // check if button already exists
     if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
         nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
     }
 }
 
-// netflix like hero caraousel with logo of the show, title, description and backdrop from jellyfin
-function addHero(items){
-    
-        console.log(items);
-        data = items[0]
-        var heroContainer = document.createElement("div");
-        heroContainer.className = "heroContainer";
-        var heroBackground = document.createElement("div");
-        heroBackground.className = "heroBackground";
-        heroBackground.style = "background-image: linear-gradient(0deg, rgba(10,10,10,1) 0%, rgba(0,0,0,0) 19%, rgba(0,0,0,0.5) 100%), url('" + server + "/Items/" + data["Id"] + "/Images/Backdrop/0?maxWidth=1920&tag=" + data["BackdropImageTags"][0] + "');";
-        var heroContent = document.createElement("div");
-        heroContent.className = "heroContent padded-left";
-        var heroLogo = document.createElement("div");
-        heroLogo.className = "heroLogo";
-        var heroLogoImage = document.createElement("img");
-        heroLogoImage.className = "heroLogoImage";
-        heroLogoImage.src = server + "/Items/" + data["Id"] + "/Images/Logo?maxWidth=300&tag=" + data["ImageTags"]["Logo"];
-        heroLogo.appendChild(heroLogoImage);
-        var heroTitle = document.createElement("div");
-        heroTitle.className = "heroTitle";
-        heroTitle.innerHTML = data["Name"];
-        heroTitle.style = "";
-        var heroDescription = document.createElement("div");
-        heroDescription.className = "heroDescription";
-        heroDescription.innerHTML = data["Overview"];
-        heroContent.appendChild(heroLogo);
-        heroContent.appendChild(heroTitle);
-        heroContent.appendChild(heroDescription);
-        heroContainer.appendChild(heroContent);
-        heroContainer.prepend(heroBackground);
-        var heroContainerElement = document.querySelectorAll('#indexPage:not(.hide)');
-        heroContainerElement.style = "padding-top: 0px !important;";
-        // check  if hero already exists
-        if (heroContainerElement[0].querySelectorAll(".heroContainer").length == 0) {
-            heroContainerElement[0].prepend(heroContainer);
-        }
-        
+function addHero() {
+    let heroContainer = document.createElement("div");
+    heroContainer.className = "heroContainer";
+    let heroBackground = document.createElement("img");
+    heroBackground.className = "heroBackground";
+    let heroBackgroundContainer = document.createElement("div");
+    heroBackgroundContainer.className = "heroBackgroundContainer";
+    let heroContent = document.createElement("div");
+    heroContent.className = "heroContent padded-left";
+    let heroLogo = document.createElement("div");
+    heroLogo.className = "heroLogo";
+    let heroLogoImage = document.createElement("img");
+    heroLogoImage.className = "heroLogoImage";
+    heroLogo.appendChild(heroLogoImage);
+    let heroTitle = document.createElement("div");
+    heroTitle.className = "heroTitle";
+    let heroDescription = document.createElement("div");
+    heroDescription.className = "heroDescription";
+    let buttonContainer = document.createElement("div");
+    buttonContainer.className = "buttonContainer";
+    let heroButton = document.createElement("button");
+    heroButton.className = "raised emby-button heroButton";
+    heroButton.innerHTML = "Watch Now";
+    heroContent.appendChild(heroLogo);
+    buttonContainer.appendChild(heroButton);
+    heroContent.appendChild(heroTitle);
+    heroContent.appendChild(heroDescription);
+    heroContent.appendChild(buttonContainer);
+    heroContainer.appendChild(heroContent);
+    heroContainer.prepend(heroBackgroundContainer);
+    let heroContainerElement = document.querySelectorAll('#indexPage:not(.hide)');
+    heroContainerElement.style = "padding-top: 0px !important;";
+    if (heroContainerElement[0].querySelectorAll(".heroContainer").length == 0) {
+        heroContainerElement[0].prepend(heroContainer);
+    }
+
 }
 
 const copyTextContent = function (element) {
@@ -279,7 +275,6 @@ const copyTextContent = function (element) {
 
 var isPageReady = async function () {
     while (true) {
-        await new Promise(r => setTimeout(r, 500));
         if (pageLocation() == "details") {
             try {
                 if (document.querySelectorAll('#itemDetailPage:not(.hide) .mediaInfoItem').length > 0) {
@@ -290,19 +285,19 @@ var isPageReady = async function () {
             catch (error) {
 
             }
-        } if (pageLocation()=="home") {
+        } if (pageLocation() == "home") {
             try {
                 if (document.querySelectorAll('.sectionTitle').length > 0) {
                     console.log("CUSTOM: page ready");
                     return true;
                 }
-                
+
             }
             catch (error) {
-                
+
             }
         }
-        
+
         else {
             try {
                 if (document.querySelectorAll('.nowPlayingEpisode').length > 0) {
@@ -333,56 +328,58 @@ function detailsPageScripts() {
 
 async function homePageScripts() {
     console.log("CUSTOM: home page scripts");
-     
-    let latesShows = await JellyfinApi('/Users/' + userId + '/Items/Latest?Limit=10&Recursive=true&IncludeItemTypes=Series', 'GET');
+
+    let latestShows = await JellyfinApi('/Users/' + userId + '/Items/Latest?Limit=10&Recursive=true&IncludeItemTypes=Series&Fields=Id', 'GET');
     let latestShowsWithDetails = [];
-    for (let i = 0; i < latesShows.length; i++) {
-        let show = await JellyfinApi('/Users/' + userId + '/Items/' + latesShows[i]["Id"], 'GET');
+    for (let i = 0; i < latestShows.length; i++) {
+        let show = await JellyfinApi('/Users/' + userId + '/Items/' + latestShows[i]["Id"] + '?&Fields=Id%2CName%2COverview%2CImageTags', 'GET');
         await latestShowsWithDetails.push(show);
     }
-    
-    // wait for latestShowsWithDetails to be filled
-    await new Promise(r => setTimeout(r, 500));
-    addHero(latestShowsWithDetails);
-    series = latestShowsWithDetails
-    // change hero items every 5 seconds to the next item in the list
-    var i = 1;
-    if (heroHasRun == true)  {
+    if (heroHasRun || document.querySelectorAll('#indexPage:not(.hide) .heroContainer').length > 0) {
         return;
     }
-    while(true) {
-        await new Promise(r => setTimeout(r, 5000));
-        heroBackground = document.querySelectorAll("#indexPage:not(.hide) .heroBackground");
-        // heroBackground[0].remove();
-        newHeroBackground = document.createElement("div");
-        newHeroBackground.className = "heroBackground";
-        newHeroBackground.style = "background-image: linear-gradient(0deg, rgba(10,10,10,1) 0%, rgba(0,0,0,0) 19%, rgba(0,0,0,0.5) 100%), url('" + server + "/Items/" + series[i]["Id"] + "/Images/Backdrop/0?maxWidth=1920&tag=" + series[i]["BackdropImageTags"][0] + "');";
-        heroContainer = document.querySelectorAll("#indexPage:not(.hide) .heroContainer");
-        heroTitle = document.querySelectorAll("#indexPage:not(.hide) .heroTitle");
-        newHeroTitle = document.createElement("div");
-        newHeroTitle.className = "heroTitle";
-        newHeroTitle.innerHTML = series[i]["Name"];
-        newHeroDescription = document.createElement("div");
-        newHeroDescription.className = "heroDescription";
-        newHeroDescription.innerHTML = series[i]["Overview"];
-        heroContent = document.querySelectorAll("#indexPage:not(.hide) .heroContent")
-        heroLogoImage = document.querySelectorAll("#indexPage:not(.hide) .heroLogoImage");
-        newHeroLogoImage = document.createElement("img");
-        newHeroLogoImage.className = "heroLogoImage";
-        newHeroLogoImage.src = server + "/Items/" + series[i]["Id"] + "/Images/Logo?maxWidth=300&tag=" + series[i]["ImageTags"]["Logo"];
-        heroLogo = document.querySelectorAll("#indexPage:not(.hide) .heroLogo");
-        heroContainer[0].replaceChild(newHeroBackground, heroBackground[0]);
-        heroContent[0].replaceChild(newHeroTitle, heroTitle[0]);
-        heroContent[0].replaceChild(newHeroDescription, heroContent[0].childNodes[2]);
-        heroLogo[0].replaceChild(newHeroLogoImage, heroLogoImage[0]);
+    addHero();
+    let hasRun = true;
+    series = latestShowsWithDetails;
+    var i = 1;
+    while (true) {
+        try {
+            document.getElementById(series[i - 1]["BackdropImageTags"]).classList.toggle("hide");
+        } catch (error) {
+            document.querySelectorAll(".heroBackground").forEach(function (element) {
+                element.classList.add("hide");
+            });
+        }
+        let heroTitle = document.querySelector("#indexPage:not(.hide) .heroTitle");
+        let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription")
+        let heroButton = document.querySelector("#indexPage:not(.hide) .heroButton");
+        let heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage")
+        heroTitle.innerHTML = series[i]["Name"];
+        heroDescription.innerHTML = series[i]["Overview"];
+        heroLogoImage.src = server + "/Items/" + series[i]["Id"] + "/Images/Logo?maxWidth=300&tag=" + series[i]["ImageTags"]["Logo"];
+        let heroBackground = document.querySelector("#indexPage:not(.hide) .heroBackground");
+        heroButton.onclick = function () {
+            window.history.state.url = "/web/index.html#!/details?id=" + series[i]["Id"];
+            window.history.pushState(window.history.state, "", "/web/index.html#!/details?id=" + series[i]["Id"]);
+            window.history.go(0);
+        }
+        for (let j = 0; j < series.length; j++) {
+            temp = document.createElement("img");
+            temp.className = "heroBackground hide";
+            temp.src = server + "/Items/" + series[j]["Id"] + "/Images/Backdrop?maxWidth=1920&tag=" + series[j]["ImageTags"]["Backdrop"] + "&quality=50";
+            temp.id = series[j]["BackdropImageTags"];
+            document.querySelector("#indexPage:not(.hide) .heroBackgroundContainer").appendChild(temp);
+        }
+        document.getElementById(series[i]["BackdropImageTags"]).classList.toggle("hide");
         console.log(i);
-        if (i >= series.length - 1) {
+        await new Promise(r => setTimeout(r, 5000));
+        if (i == series.length - 1) {
             i = 0;
         } else {
             i++;
         }
     }
-    
+
 }
 
 function queuePageScripts() {
@@ -429,6 +426,6 @@ window.onload = function () {
 window.addEventListener('keydown', function (event) {
     if (event.ctrlKey && event.key === 'f') {
         event.preventDefault();
-        document.querySelectorAll("title=Search")[0].click();
+        document.querySelector('[title="Search"]').click();
     }
 }, false);
