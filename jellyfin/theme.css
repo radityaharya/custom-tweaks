@@ -49,7 +49,7 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface. an
     margin-left: 32.5%;
     display: block;
     -webkit-filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
-    /*! filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75)); */
+    filter: drop-shadow(0 0 10px rgba(2, 2, 2, 0.75));
     flex-shrink: 0;
     background-position: 0 50%;
     margin-top: -18vh;
@@ -63,7 +63,6 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface. an
 /* #itemDetailPage .itemName.infoText.parentNameLast {
     display: none;
 } */
-
 .hide+.detailPageWrapperContainer .itemName {
     display: block !important;
 }
@@ -95,9 +94,7 @@ Note: This styesheet mainly fixes minor issues with the mobile web interface. an
     background-color: rgba(0, 0, 0, 0);
 }
 
-
 /*Some themeing for the dashboard*/
-
 #user_usage_report_table,
 .detailTable {
     background: rgba(0, 0, 0, .5);
@@ -162,7 +159,6 @@ fieldset {
 .itemBackdrop::after {
     background: rgba(0, 0, 0, .5) !important;
 }
-
 
 /*Homepage modifications, transparent footerplayer and fixed sectiontitles*/
 .appfooter {
@@ -455,7 +451,6 @@ progress {
 
 /* @import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/cornerindicator/indicator_corner.css'); */
 /*Card indicators style corner*/
-
 .cardIndicators,
 .listItemIndicators {
     right: 0;
@@ -543,7 +538,6 @@ progress::-webkit-progress-bar {
 }
 
 /* @import url('https://cdn.jsdelivr.net/gh/CTalvio/Ultrachromic/login/login_frame.css'); */
-
 /*Narrow the login form, size according to display size (bigger on mobile)*/
 #loginPage .readOnlyContent,
 #loginPage form {
@@ -1437,7 +1431,6 @@ progress::-webkit-progress-value {
 }
 
 /*Correct image aspect ratio behaviour, set border-radius to zero for square tiles*/
-
 @media all and (min-width: 131.25em) {
     #castContent .cardScalable {
         width: calc(6.3vw - 0.6em) !important;
@@ -1631,7 +1624,6 @@ html {
     --rounding: 12px;
 }
 
-
 .skinHeader.semiTransparent {
     background-color: rgb(0 0 0 / 0%) !important;
 }
@@ -1639,7 +1631,6 @@ html {
 /* .skinHeader-withBackground {
     background-color: #0a0a0a;
 } */
-
 .skinHeader {
     background-color: #0a0a0a24;
 }
@@ -1664,7 +1655,6 @@ html {
     }
 }
 
-
 .content-primary,
 .padded-bottom-page,
 .page,
@@ -1682,7 +1672,6 @@ html {
     padding-top: 1em;
     padding-bottom: .5em;
 }
-
 
 @media only screen and (max-width: 40em) {
     .layout-mobile .detailImageContainer .card {
@@ -1734,7 +1723,6 @@ html {
     width: 24vw;
 }
 
-
 .detailImageContainer .card {
     position: fixed !important;
     top: 15% !important;
@@ -1750,7 +1738,6 @@ html {
     overflow-x: clip;
 }
 
-
 /* disable backdrop other than detailsPage in */
 .withSectionTabs .backdropContainer {
     background: #0a0a0a !important;
@@ -1760,7 +1747,6 @@ html {
     display: none !important;
     background-image: none !important;
 }
-
 
 /* remove itemBackdrop to fix wacky alignment when backdrop is enabled */
 .layout-desktop .itemBackdrop {
@@ -1876,7 +1862,6 @@ html {
     flex-direction: row-reverse
 }
 
-
 /* header left-right */
 .headerRight {
     background: #0a0a0a78;
@@ -1928,9 +1913,11 @@ html {
 }
 
 .heroContainer {
-    min-height: 14em;
     background: rgb(10, 10, 10);
     background: linear-gradient(0deg, rgba(10, 10, 10, 1) 0%, rgba(0, 0, 0, 0.3841911764705882) 35%, rgba(0, 0, 0, 0) 59%);
+    position: absolute;
+    width: 100%;
+    z-index: -1;
 }
 
 .noHomeButtonHeader {
@@ -1945,7 +1932,7 @@ html {
 
 .heroBackground {
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     min-width: 100%;
     max-height: 100%;
     position: absolute;
@@ -1953,9 +1940,7 @@ html {
 }
 
 .heroBackgroundContainer {
-    height: 55vh;
-    background-position: center;
-    background-repeat: no-repeat;
+    height: 60vh;
     position: relative;
     z-index: -1;
     animation: fadein 1s;
@@ -1986,25 +1971,26 @@ html {
     z-index: 2;
 }
 
-.layout-mobile .heroContent{
-    top:14vh !important;
+#indexPage:not(.hide) .tabContent.pageTabContent.is-active {
+    margin-top: 31em;
+}
+
+.layout-mobile #indexPage:not(.hide) .tabContent.pageTabContent.is-active {
+    margin-top: 27em;
+}
+
+.layout-mobile .heroContent {
+    top: 14vh !important;
 }
 
 .heroDescription {
     font-size: 1em;
     font-weight: 300;
     max-width: 50%;
-    text-shadow:
-        2.8px 2.8px 2.2px rgb(0, 0, 0),
-        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-        100px 100px 80px rgba(0, 0, 0, 0.07);
-
+    text-shadow: 2.8px 2.8px 2.2px rgb(0, 0, 0), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028), 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042), 41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05), 100px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
-.layout-desktop .buttonContainer{
+.layout-desktop .buttonContainer {
     display: none !important;
 }
 
@@ -2018,18 +2004,16 @@ html {
     color: #fff;
     margin-top: 1em;
     margin-bottom: 0.5em;
-    text-shadow:
-        2.8px 2.8px 2.2px rgba(0, 0, 0, 0.02),
-        6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028),
-        12.5px 12.5px 10px rgba(0, 0, 0, 0.035),
-        22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042),
-        41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05),
-        100px 100px 80px rgba(0, 0, 0, 0.07);
-
+    text-shadow: 2.8px 2.8px 2.2px rgb(0, 0, 0), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028), 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042), 41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05), 100px 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .heroLogo {
     height: 150px;
+}
+
+.heroLogo img {
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 
 .layout-mobile .heroLogo {
@@ -2039,4 +2023,9 @@ html {
 .heroLogo img {
     max-height: 100%;
     max-width: 100%;
+}
+
+.sectionTitle {
+    font-weight: 500 !important; 
+    text-shadow: 2.8px 2.8px 2.2px rgb(0, 0, 0), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028), 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042), 41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05), 100px 100px 80px rgba(0, 0, 0, 0.07);
 }
