@@ -1932,7 +1932,7 @@ html {
 
 .heroBackground {
     object-fit: cover;
-    object-position: center top;
+    object-position: right;
     min-width: 100%;
     max-height: 100%;
     position: absolute;
@@ -1940,7 +1940,7 @@ html {
 }
 
 .heroBackgroundContainer {
-    height: 60vh;
+    height: 50em;
     position: relative;
     z-index: -1;
     animation: fadein 1s;
@@ -1949,6 +1949,10 @@ html {
     -o-animation: fadein 1s;
     -ms-animation: fadein 1s;
     z-index: 2;
+}
+
+.layout-mobile .heroBackgroundContainer{
+    height: 40em !important
 }
 
 .heroBackgroundContainer::after {
@@ -2028,4 +2032,8 @@ html {
 .sectionTitle {
     font-weight: 500 !important; 
     text-shadow: 2.8px 2.8px 2.2px rgb(0, 0, 0), 6.7px 6.7px 5.3px rgba(0, 0, 0, 0.028), 12.5px 12.5px 10px rgba(0, 0, 0, 0.035), 22.3px 22.3px 17.9px rgba(0, 0, 0, 0.042), 41.8px 41.8px 33.4px rgba(0, 0, 0, 0.05), 100px 100px 80px rgba(0, 0, 0, 0.07);
+}
+
+#indexPage .emby-scroller {
+    overflow: visible !important;
 }
