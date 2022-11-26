@@ -1917,7 +1917,7 @@ html {
     background: linear-gradient(0deg, rgba(10, 10, 10, 1) 0%, rgba(0, 0, 0, 0.3841911764705882) 35%, rgba(0, 0, 0, 0) 59%);
     position: absolute;
     width: 100%;
-    z-index: -1;
+    z-index: 0;
 }
 
 .noHomeButtonHeader {
@@ -1942,13 +1942,12 @@ html {
 .heroBackgroundContainer {
     height: 50em;
     position: relative;
-    z-index: -1;
+    z-index: 0;
     animation: fadein 1s;
     -webkit-animation: fadein 1s;
     -moz-animation: fadein 1s;
     -o-animation: fadein 1s;
     -ms-animation: fadein 1s;
-    z-index: 2;
 }
 
 .layout-mobile .heroBackgroundContainer{
