@@ -199,7 +199,7 @@ function addFullscreenButton() {
     let fullscreenButton = createFullscreenButton();
     fullscreenButton.onclick = function () {
         toggleFullscreen();
-    }
+    };
     if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
         nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
     }
@@ -207,7 +207,7 @@ function addFullscreenButton() {
 
 function createFullscreenButton() {
     let fullscreenButton = document.createElement("button");
-    fullscreenButton.className = "videoButton btnPlayStateCommand autoSize paper-icon-button-light"
+    fullscreenButton.className = "videoButton btnPlayStateCommand autoSize paper-icon-button-light";
     fullscreenButton.attributes = "is='paper-icon-button-light'";
     let icon = document.createElement("span");
     icon.className = "material-icons fullscreenIcon";
@@ -336,7 +336,7 @@ async function homePageScripts() {
         });
         try {
             var heroTitle = document.querySelector("#indexPage:not(.hide) .heroTitle");
-            let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription")
+            let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription");
             let heroButton = document.querySelector("#indexPage:not(.hide) .heroButton");
             var heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage");
             heroTitle.innerHTML = series[i]["Name"];
