@@ -23,7 +23,7 @@ function pageLocation() {
         }
     }
     return page;
-}
+};
 
 async function JellyfinApi(endpoint, method, data) {
     var url = server + endpoint;
@@ -106,11 +106,11 @@ async function anilistAPI(aid) {
     const response = await fetch(url, options);
     const data = await response.json();
     return data;
-}
+};
 
 var getId = function () {
     return window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
-}
+};
 
 function addStatus(item) {
     var itemMiscInfo = document.querySelectorAll('#itemDetailPage:not(.hide) .itemMiscInfo-primary');
@@ -129,7 +129,7 @@ function addStatus(item) {
                     default:
                         return "grey";
                 }
-            }
+            };
             statusElement.style = "background-color: " + color() + "; color: white; border-radius: 5px; padding: 0px 5px 0px 5px; margin-left: 5px;";
             if (itemMiscInfo && itemMiscInfo.length > 0 && itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
                 itemMiscInfo[itemMiscInfo.length - 1].prepend(statusElement);
@@ -138,7 +138,7 @@ function addStatus(item) {
     }).catch(function (error) {
         console.log("Error: " + error);
     });
-}
+};
 
 function addStaff(item) {
     item.then(function (data) {
@@ -167,7 +167,7 @@ function addStaff(item) {
             });
         }
     });
-}
+};
 
 function addNextAiring(item) {
     item.then(function (data) {
@@ -192,7 +192,7 @@ function addNextAiring(item) {
             });
         }
     });
-}
+};
 
 function addFullscreenButton() {
     let nowPlayingSecondaryButtons = document.querySelectorAll('.nowPlayingSecondaryButtons');
@@ -203,7 +203,7 @@ function addFullscreenButton() {
     if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
         nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
     }
-}
+};
 
 function createFullscreenButton() {
     let fullscreenButton = document.createElement("button");
@@ -214,7 +214,7 @@ function createFullscreenButton() {
     icon.innerHTML = "fullscreen";
     fullscreenButton.appendChild(icon);
     return fullscreenButton;
-}
+};
 
 function toggleFullscreen() {
     var elem = document.documentElement;
@@ -227,7 +227,7 @@ function toggleFullscreen() {
             document.exitFullscreen();
         }
     }
-}
+};
 
 function addHero() {
     let heroContainerElement = document.querySelectorAll('#indexPage:not(.hide)');
@@ -275,12 +275,12 @@ function createHeroContainer() {
     heroContainer.appendChild(heroContent);
     heroContainer.prepend(heroBackgroundContainer);
     return heroContainer;
-}
+};
 
 const copyTextContent = function (element) {
     var text = element.textContent;
     navigator.clipboard.writeText(text);
-}
+};
 
 var isPageReady = async function () {
     while (true) {
@@ -300,7 +300,7 @@ var isPageReady = async function () {
         }
         await new Promise(r => setTimeout(r, 500));
     }
-}
+};
 
 function detailsPageScripts() {
     console.log("CUSTOM: details page scripts");
@@ -314,7 +314,7 @@ function detailsPageScripts() {
     addStatus(item);
     addStaff(item);
     addNextAiring(item);
-}
+};
 
 async function homePageScripts() {
     console.log("CUSTOM: home page scripts");
@@ -338,7 +338,7 @@ async function homePageScripts() {
             var heroTitle = document.querySelector("#indexPage:not(.hide) .heroTitle");
             let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription")
             let heroButton = document.querySelector("#indexPage:not(.hide) .heroButton");
-            var heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage")
+            var heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage");
             heroTitle.innerHTML = series[i]["Name"];
             document.querySelector("#indexPage:not(.hide) .heroLogo").classList.remove("hide");
             heroTitle.classList.remove("noLogo");
@@ -382,12 +382,12 @@ async function homePageScripts() {
             i++;
         }
     }
-}
+};
 
 function queuePageScripts() {
     console.log("CUSTOM: queue page scripts");
     addFullscreenButton();
-}
+};
 
 var previousUrlWithQuery = window.location.href;
 var observer = new MutationObserver(function (mutations) {
@@ -420,7 +420,7 @@ window.onload = function () {
             homePageScripts();
         }
     });
-}
+};
 
 // detect ctrl + f and click on search button
 window.addEventListener('keydown', function (event) {
