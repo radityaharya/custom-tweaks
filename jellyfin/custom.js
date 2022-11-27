@@ -1,5 +1,4 @@
 //@radityaharya
-// still dunno whut to do with this, probably will be used to add custom elements to the page
 var credentials = JSON.parse(localStorage.getItem('jellyfin_credentials'));
 var accessToken = credentials["Servers"][0]["AccessToken"];
 var userId = credentials["Servers"][0]["UserId"];
@@ -17,24 +16,14 @@ function pageLocation() {
         "queue": "/web/index.html#!/queue"
     };
     var location = window.location.href;
-    switch (true) {
-        case location.indexOf(locations["home"]) > -1:
-            return "home";
-        case location.indexOf(locations["movies"]) > -1:
-            return "movies";
-        case location.indexOf(locations["tvshows"]) > -1:
-            return "tvshows";
-        case location.indexOf(locations["music"]) > -1:
-            return "music";
-        case location.indexOf(locations["details"]) > -1:
-            return "details";
-        case location.indexOf(locations["queue"]) > -1:
-            return "queue";
-        default:
-            return "home";
+    var page = "home";
+    for (var key in locations) {
+        if (location.indexOf(locations[key]) > -1) {
+            page = key;
+        }
     }
+    return page;
 }
-
 
 async function JellyfinApi(endpoint, method, data) {
     var url = server + endpoint;
@@ -57,9 +46,13 @@ async function JellyfinApi(endpoint, method, data) {
     if (data) {
         options.body = JSON.stringify(data);
     }
-    const response = await fetch(url, options);
-    const data_1 = await response.json();
-    return data_1;
+    try {
+        const response = await fetch(url, options);
+        const data_1 = await response.json();
+        return data_1;
+    } catch (err) {
+        console.log(err);
+    }
 };
 
 async function anilistAPI(aid) {
@@ -116,8 +109,7 @@ async function anilistAPI(aid) {
 }
 
 var getId = function () {
-    id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
-    return id;
+    return window.location.href.substring(window.location.href.lastIndexOf('/') + 1).substring(0, window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('&')).substring(window.location.href.substring(window.location.href.lastIndexOf('/') + 1).indexOf('=') + 1);
 }
 
 function addStatus(item) {
@@ -139,10 +131,12 @@ function addStatus(item) {
                 }
             }
             statusElement.style = "background-color: " + color() + "; color: white; border-radius: 5px; padding: 0px 5px 0px 5px; margin-left: 5px;";
-            if (itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
+            if (itemMiscInfo && itemMiscInfo.length > 0 && itemMiscInfo[itemMiscInfo.length - 1].getElementsByClassName("status").length == 0) {
                 itemMiscInfo[itemMiscInfo.length - 1].prepend(statusElement);
             }
         }
+    }).catch(function (error) {
+        console.log("Error: " + error);
     });
 }
 
@@ -151,21 +145,17 @@ function addStaff(item) {
         if (data["ProviderIds"]["AniList"]) {
             anilistAPI(data["ProviderIds"]["AniList"]).then(function (anidata) {
                 var itemDetailsGroups = document.querySelectorAll('#itemDetailPage:not(.hide) .itemDetailsGroup');
-                if (itemDetailsGroups[0].querySelectorAll("#itemDetailPage:not(.hide) .directorsGroup:not(.hide)").length > 0) {
-                    return;
-                }
-                console.log(anidata);
                 var stafItems = anidata["data"]["Media"]["staff"]["edges"];
                 for (var i = 0; i < stafItems.length; i++) {
                     if (stafItems[i]["role"] != "Director" && stafItems[i]["role"] != "Original Creator") {
                         continue;
                     }
-                    var detailsGroupItem = document.createElement("div");
+                    let detailsGroupItem = document.createElement("div");
                     detailsGroupItem.className = "detailsGroupItem directorsGroup";
-                    var directorsLabel = document.createElement("div");
+                    let directorsLabel = document.createElement("div");
                     directorsLabel.className = "directorsLabel label";
                     directorsLabel.innerHTML = stafItems[i]["role"];
-                    var directorsValue = document.createElement("div");
+                    let directorsValue = document.createElement("div");
                     directorsValue.className = "directors content focuscontainer-x";
                     directorsValue.innerHTML = stafItems[i]["node"]["name"]["full"];
                     directorsValue.style = "cursor: pointer;";
@@ -206,6 +196,16 @@ function addNextAiring(item) {
 
 function addFullscreenButton() {
     let nowPlayingSecondaryButtons = document.querySelectorAll('.nowPlayingSecondaryButtons');
+    let fullscreenButton = createFullscreenButton();
+    fullscreenButton.onclick = function () {
+        toggleFullscreen();
+    }
+    if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
+        nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
+    }
+}
+
+function createFullscreenButton() {
     let fullscreenButton = document.createElement("button");
     fullscreenButton.className = "videoButton btnPlayStateCommand autoSize paper-icon-button-light"
     fullscreenButton.attributes = "is='paper-icon-button-light'";
@@ -213,24 +213,38 @@ function addFullscreenButton() {
     icon.className = "material-icons fullscreenIcon";
     icon.innerHTML = "fullscreen";
     fullscreenButton.appendChild(icon);
-    fullscreenButton.onclick = function () {
-        var elem = document.documentElement;
-        if (!document.fullscreenElement) {
-            elem.requestFullscreen().catch(err => {
-                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-            });
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
+    return fullscreenButton;
+}
+
+function toggleFullscreen() {
+    var elem = document.documentElement;
+    if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(err => {
+            alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
         }
-    }
-    if (nowPlayingSecondaryButtons[0].querySelectorAll(".fullscreenIcon").length == 0) {
-        nowPlayingSecondaryButtons[0].prepend(fullscreenButton);
     }
 }
 
 function addHero() {
+    let heroContainerElement = document.querySelectorAll('#indexPage:not(.hide)');
+    if (heroContainerElement.length == 0) {
+        console.log('No indexPage');
+        return;
+    }
+    heroContainerElement = heroContainerElement[0];
+    if (heroContainerElement.querySelectorAll(".heroContainer").length != 0) {
+        console.log('Hero container already exists');
+        return;
+    }
+    let heroContainer = createHeroContainer();
+    heroContainerElement.prepend(heroContainer);
+}
+
+function createHeroContainer() {
     let heroContainer = document.createElement("div");
     heroContainer.className = "heroContainer";
     let heroBackground = document.createElement("img");
@@ -260,12 +274,7 @@ function addHero() {
     heroContent.appendChild(buttonContainer);
     heroContainer.appendChild(heroContent);
     heroContainer.prepend(heroBackgroundContainer);
-    let heroContainerElement = document.querySelectorAll('#indexPage:not(.hide)');
-    heroContainerElement.style = "padding-top: 0px !important;";
-    if (heroContainerElement[0].querySelectorAll(".heroContainer").length == 0) {
-        heroContainerElement[0].prepend(heroContainer);
-    }
-
+    return heroContainer;
 }
 
 const copyTextContent = function (element) {
@@ -276,36 +285,17 @@ const copyTextContent = function (element) {
 var isPageReady = async function () {
     while (true) {
         if (pageLocation() == "details") {
-            try {
-                if (document.querySelectorAll('#itemDetailPage:not(.hide) .mediaInfoItem').length > 0) {
-                    console.log("CUSTOM: page ready");
-                    return true;
-                }
-            }
-            catch (error) {
-
+            if (document.querySelectorAll('#itemDetailPage:not(.hide) .mediaInfoItem').length > 0) {
+                return true;
             }
         } if (pageLocation() == "home") {
-            try {
-                if (document.querySelectorAll('.sectionTitle').length > 0) {
-                    console.log("CUSTOM: page ready");
-                    return true;
-                }
-
-            }
-            catch (error) {
-
+            if (document.querySelectorAll('.sectionTitle').length > 0) {
+                return true;
             }
         }
-
         else {
-            try {
-                if (document.querySelectorAll('.nowPlayingEpisode').length > 0) {
-                    console.log("CUSTOM: page ready");
-                    return true;
-                }
-            } catch (error) {
-                console.log(error);
+            if (document.querySelectorAll('.nowPlayingEpisode').length > 0) {
+                return true;
             }
         }
         await new Promise(r => setTimeout(r, 500));
@@ -314,7 +304,7 @@ var isPageReady = async function () {
 
 function detailsPageScripts() {
     console.log("CUSTOM: details page scripts");
-    parentNameLast = document.getElementsByClassName("infoText");
+    let parentNameLast = document.getElementsByClassName("infoText");
     for (var i = 0; i < parentNameLast.length; i++) {
         parentNameLast[i].addEventListener("click", function () {
             copyTextContent(this);
@@ -328,49 +318,62 @@ function detailsPageScripts() {
 
 async function homePageScripts() {
     console.log("CUSTOM: home page scripts");
-
     let latestShows = await JellyfinApi('/Users/' + userId + '/Items/Latest?Limit=10&Recursive=true&IncludeItemTypes=Series&Fields=Id', 'GET');
-    let latestShowsWithDetails = [];
+    let series = [];
     for (let i = 0; i < latestShows.length; i++) {
         let show = await JellyfinApi('/Users/' + userId + '/Items/' + latestShows[i]["Id"] + '?&Fields=Id%2CName%2COverview%2CImageTags', 'GET');
-        await latestShowsWithDetails.push(show);
+        await series.push(show);
     }
     if (heroHasRun || document.querySelectorAll('#indexPage:not(.hide) .heroContainer').length > 0) {
         return;
     }
     addHero();
     let hasRun = true;
-    series = latestShowsWithDetails;
     var i = 1;
     while (true) {
+        document.querySelectorAll(".heroBackground").forEach(function (element) {
+            element.classList.add("hide");
+        });
         try {
-            document.getElementById(series[i - 1]["BackdropImageTags"]).classList.toggle("hide");
-        } catch (error) {
-            document.querySelectorAll(".heroBackground").forEach(function (element) {
-                element.classList.add("hide");
-            });
+            var heroTitle = document.querySelector("#indexPage:not(.hide) .heroTitle");
+            let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription")
+            let heroButton = document.querySelector("#indexPage:not(.hide) .heroButton");
+            var heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage")
+            heroTitle.innerHTML = series[i]["Name"];
+            document.querySelector("#indexPage:not(.hide) .heroLogo").classList.remove("hide");
+            heroTitle.classList.remove("noLogo");
+            heroDescription.innerHTML = series[i]["Overview"];
+            if (series[i]["ImageTags"]["Logo"]) {
+                heroLogoImage.src = server + "/Items/" + series[i]["Id"] + "/Images/Logo?maxWidth=300&tag=" + series[i]["ImageTags"]["Logo"];
+            } else {
+                document.querySelector("#indexPage:not(.hide) .heroLogo").classList.add("hide");
+                document.querySelector("#indexPage:not(.hide) .heroTitle").classList.add("noLogo");
+            }
+            let heroBackground = document.querySelector("#indexPage:not(.hide) .heroBackground");
+            heroButton.onclick = function () {
+                window.history.state.url = "/web/index.html#!/details?id=" + series[i]["Id"];
+                window.history.pushState(window.history.state, "", "/web/index.html#!/details?id=" + series[i]["Id"]);
+                window.history.go(0);
+            }
         }
-        let heroTitle = document.querySelector("#indexPage:not(.hide) .heroTitle");
-        let heroDescription = document.querySelector("#indexPage:not(.hide) .heroDescription")
-        let heroButton = document.querySelector("#indexPage:not(.hide) .heroButton");
-        let heroLogoImage = document.querySelector("#indexPage:not(.hide) .heroLogoImage")
-        heroTitle.innerHTML = series[i]["Name"];
-        heroDescription.innerHTML = series[i]["Overview"];
-        heroLogoImage.src = server + "/Items/" + series[i]["Id"] + "/Images/Logo?maxWidth=300&tag=" + series[i]["ImageTags"]["Logo"];
-        let heroBackground = document.querySelector("#indexPage:not(.hide) .heroBackground");
-        heroButton.onclick = function () {
-            window.history.state.url = "/web/index.html#!/details?id=" + series[i]["Id"];
-            window.history.pushState(window.history.state, "", "/web/index.html#!/details?id=" + series[i]["Id"]);
-            window.history.go(0);
+        catch (error) {
+            console.log(error);
         }
         for (let j = 0; j < series.length; j++) {
-            temp = document.createElement("img");
-            temp.className = "heroBackground hide";
-            temp.src = server + "/Items/" + series[j]["Id"] + "/Images/Backdrop?maxWidth=1920&tag=" + series[j]["ImageTags"]["Backdrop"] + "&quality=50";
-            temp.id = series[j]["BackdropImageTags"];
-            document.querySelector("#indexPage:not(.hide) .heroBackgroundContainer").appendChild(temp);
+            if (isPageReady()) {
+                let temp = document.createElement("img");
+                temp.className = "heroBackground hide";
+                temp.src = server + "/Items/" + series[j]["Id"] + "/Images/Backdrop?maxWidth=1920&tag=" + series[j]["ImageTags"]["Backdrop"] + "&quality=50";
+                temp.id = series[j]["BackdropImageTags"];
+                if (document.querySelectorAll("#indexPage:not(.hide) .heroBackground").length < series.length) {
+                    document.querySelector("#indexPage:not(.hide) .heroBackgroundContainer").appendChild(temp);
+                }
+                    
+            }
         }
-        document.getElementById(series[i]["BackdropImageTags"]).classList.toggle("hide");
+        document.querySelectorAll("[id='" + series[i]["BackdropImageTags"] + "']").forEach(function (element) {
+            element.classList.remove("hide");
+        });
         console.log(i);
         await new Promise(r => setTimeout(r, 5000));
         if (i == series.length - 1) {
@@ -379,7 +382,6 @@ async function homePageScripts() {
             i++;
         }
     }
-
 }
 
 function queuePageScripts() {
@@ -408,8 +410,6 @@ var observer = new MutationObserver(function (mutations) {
     }
 });
 observer.observe(document, { subtree: true, childList: true });
-
-
 
 window.onload = function () {
     console.log('CUSTOM:window loaded');
