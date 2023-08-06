@@ -1,0 +1,254 @@
+/* Spicetify Dark Mono Theme */
+/* https://github.com/radityaharya/custom-tweaks */
+
+/***************************** Main Header and Top Bar ******************************/
+/* Customizes the margin of the title in the main header */
+span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityHeader-topbarTitle {
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+/* Changes the font family for all elements on the page to "JetBrains Mono", a monospaced font */
+* {
+    font-family: "JetBrains Mono", monospace !important;
+}
+
+/***************************** Sidebar Customization ******************************/
+/* Changes the background color of the sidebar (Your Library) */
+.main-yourLibraryX-entryPoints {
+    background-color: #000000;
+}
+
+/* Hides the filter area in the sidebar (Your Library) */
+.main-yourLibraryX-filterArea {
+    display: none !important;
+}
+
+/* Hides the search bar in the sidebar (Your Library) */
+.main-yourLibraryX-libraryFilter {
+    display: none;
+}
+
+/* Adds padding to the left and top of the library sidebar items */
+.main-yourLibraryX-libraryRootlist {
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+/***************************** Dark Theme Customization ******************************/
+/* Changes the background color of the main header to black */
+.main-home-homeHeader {
+    background-color: #000000 !important;
+}
+
+/* Changes the background color of the main content area to black */
+.main-view-container__scroll-node-child {
+    background-color: #000000 !important;
+}
+
+/* Changes the background color of the home content to black */
+.main-home-content {
+    background-color: #000000 !important;
+}
+
+/* Makes the cards slightly darker with a transparent black background */
+.main-card-card {
+    background: rgba(24, 24, 24, 0.1) !important;
+}
+
+/* Makes the cards even darker when hovering over them */
+.main-card-card:hover {
+    background: rgba(24, 24, 24, 0.6) !important;
+}
+
+/* Changes the background color of the main view container to black */
+.Root__main-view {
+    background-color: #000;
+}
+
+/***************************** Customizing Fonts and Font Sizes ******************************/
+/* Changes the font size for certain elements in the header area */
+.HeaderArea div p {
+    font-size: 14px;
+}
+
+/* Changes the font size for certain elements in the header area */
+.HeaderArea div div p {
+    font-size: 12px;
+}
+
+/***************************** Buddyfeed Customization ******************************/
+/* Changes the background color of the Buddyfeed container to black */
+.main-buddyFeed-container {
+    background-color: #000000;
+}
+
+/* Removes padding from the left and right sides of the Buddyfeed header */
+.main-buddyFeed-header {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+/***************************** Scrollbar Customization ******************************/
+/* Hides the scrollbar thumb, making it transparent */
+*::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+}
+
+/***************************** Playlist and Tracklist Customization ******************************/
+/* Changes the background color of the main entity header container to black */
+.main-entityHeader-container > div {
+    background: #000000 !important;
+}
+
+/* Changes the background color of the playlist content to black */
+.playlist-playlist-playlistContent > div {
+    background: #000;
+}
+
+/* Changes the background color of the action bar to black */
+.main-actionBarBackground-background {
+    background: #000 !important;
+}
+
+/* Changes the background color of the tracklist header to black */
+.main-trackList-trackListHeader {
+    background: #000 !important;
+}
+
+/***************************** Top Bar and Now Playing View ******************************/
+/* Changes the background color of the top bar to black */
+.main-topBar-background {
+    background-color: #000 !important;
+}
+
+/* Changes the background color of the now playing view to black */
+.main-nowPlayingView-content {
+    background: #000 !important;
+}
+
+/***************************** Your Library and Search Customization ******************************/
+/* Hides the "Your Library" icon in the sidebar */
+.main-yourLibraryX-collapseButton span {
+    display: none !important;
+}
+
+/* Changes the background color of the search bar in the main view container to black */
+.main-view-container__scroll-node-child-spacer {
+    background: #000;
+}
+
+/* Adds padding to the left of the search input in the top bar */
+.main-topBar-searchBar input {
+    padding-left: 42px;
+}
+
+/* Hides the icons in the Your Library sidebar */
+.main-yourLibraryX-navItem a svg {
+    display: none !important;
+}
+
+/* Hides the genre switch in the now playing widget */
+.main-nowPlayingWidget-nowPlaying button:last-child {
+    display: none;
+}
+
+/***************************** More Sidebar Customization ******************************/
+/* Changes the gap between items in the sidebar */
+.main-navBar-mainNav {
+    gap: 0;
+}
+
+/* Moves the header of the Your Library sidebar up by 10px and removes left padding */
+.main-yourLibraryX-header {
+    margin-top: -10px !important;
+    padding-left: 0px;
+}
+
+/* Removes left padding from the sidebar items in Your Library */
+.main-yourLibraryX-navItems {
+    padding-left: 0px;
+}
+
+/***************************** Additional Customizations ******************************/
+/* Removes right padding from the Buddyfeed content area */
+.main-buddyFeed-content {
+    padding-right: 0px;
+}
+
+/* Hides the "Add Friends" button */
+button[aria-label="Add Friends"] {
+    display: none;
+}
+
+/* Removes the "Close" button in the Buddyfeed */
+.main-buddyFeed-actions button[aria-label="Close"] {
+    display: none !important;
+}
+
+/* Hides the lyrics configuration button and shows it on hover */
+.lyrics-lyricsContainer-LyricsContainer .lyrics-config-button-container button {
+    display: none;
+}
+
+.lyrics-lyricsContainer-LyricsContainer:hover .lyrics-config-button-container button {
+    display: flex;
+}
+
+/* Hides the lyrics provider in the now playing widget */
+.lyrics-lyricsContainer-Provider {
+    display: none;
+}
+
+/* Hides unnecessary items in Your Library sidebar */
+.main-yourLibraryX-listItemGroupCompact div p:not(.main-yourLibraryX-listRowTitleLink) {
+    display: none;
+}
+
+/* Adds left padding to the sidebar items in Your Library */
+.main-yourLibraryX-navItem {
+    padding-left: 8px !important;
+}
+
+
+.main-trackInfo-container{
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+}
+
+.main-whatsNewFeed-listRow{
+    margin-top: 10px;
+    margin-right: 10px;
+    padding: 12px !important;
+}
+
+.main-nowPlayingWidget-trackInfo{
+    overflow: hidden 
+}
+
+/*.main-nowPlayingWidget-trackInfo .main-trackInfo-genres{*/
+/*    order: -1 !important   */
+/* } */
+
+/* .main-trackInfo-container .main-trackInfo-name, */
+.main-trackInfo-container .main-trackInfo-enhanced{
+    order: -1;
+}
+
+.main-nowPlayingWidget-coverArt div{
+    min-height: 75px;
+    min-width: 75px;
+}
+
+.main-trackInfo-genres{
+    opacity: 0.5;
+    max-width: 100% !important;
+    word-wrap: normal;   
+}
+
+.main-nowPlayingWidget-trackInfo + button,
+.main-nowPlayingWidget-trackInfo + button + div
+{
+    display: none !important
+}
