@@ -1,6 +1,63 @@
 /* Spicetify Dark Mono Theme */
 /* https://github.com/radityaharya/custom-tweaks */
 
+/************************************* Global **************************************/
+/* Changes the font family for all elements on the page to "JetBrains Mono", a monospaced font */
+* {
+    font-family: "JetBrains Mono", monospace !important;
+}
+
+/* Color Setings */
+:root {
+    --spice-main: transparent;
+    --spice-button: #1db954;
+    --spice-main-elevated: #000000;
+    --spice-card: #000000;
+    --spice-highlight: #000000;
+    --spice-subtext: #b3b3b3;
+    --spice-misc: #7f7f7f;
+    --spice-highlight-elevated: #000000;
+    --spice-sidebar: #000000;
+    --spice-notification-error: #e22134;
+    --spice-player: #000000;
+    --spice-button-active: #1ed760;
+    --spice-notification: #4687d6;
+    --spice-selected-row: #ffffff;
+    --spice-shadow: #000000;
+    --spice-tab-active: #000000;
+    --spice-text: #ffffff;
+
+    --spice-rgb-main: 0,0,0;
+    --spice-rgb-button: 29,185,84;
+    --spice-rgb-main-elevated: 0,0,0;
+    --spice-rgb-card: 0,0,0;
+    --spice-rgb-highlight: 0,0,0;
+    --spice-rgb-subtext: 179,179,179;
+    --spice-rgb-misc: 127,127,127;
+    --spice-rgb-highlight-elevated: 0,0,0;
+    --spice-rgb-sidebar: 0,0,0;
+    --spice-rgb-notification-error: 226,33,52;
+    --spice-rgb-player: 0,0,0;
+    --spice-rgb-button-active: 30,215,96;
+    --spice-rgb-button-disabled: 83,83,83;
+    --spice-rgb-notification: 70,135,214;
+    --spice-rgb-selected-row: 255,255,255;
+    --spice-rgb-shadow: 0,0,0;
+    --spice-rgb-tab-active: 0,0,0;
+    --spice-rgb-text: 255,255,255;
+}
+
+/* Global Background */
+.Root{
+/*     background-image: url("https://wallpaperaccess.com/full/8808052.jpg"); /* Insert Background image here! */ 
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.Root__top-container{
+    background-color: rgba(0,0,0,0.5) !important; /* Overlay */
+}
+
 /***************************** Main Header and Top Bar ******************************/
 /* Customizes the margin of the title in the main header */
 span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityHeader-topbarTitle {
@@ -8,16 +65,11 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
     margin-top: 5px;
 }
 
-/* Changes the font family for all elements on the page to "JetBrains Mono", a monospaced font */
-* {
-    font-family: "JetBrains Mono", monospace !important;
+.main-home-homeHeader{
+    background: var(--spice-main) !important
 }
 
 /***************************** Sidebar Customization ******************************/
-/* Changes the background color of the sidebar (Your Library) */
-.main-yourLibraryX-entryPoints {
-    background-color: #000000;
-}
 
 /* Hides the filter area in the sidebar (Your Library) */
 .main-yourLibraryX-filterArea {
@@ -36,20 +88,6 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
 }
 
 /***************************** Dark Theme Customization ******************************/
-/* Changes the background color of the main header to black */
-.main-home-homeHeader {
-    background-color: #000000 !important;
-}
-
-/* Changes the background color of the main content area to black */
-.main-view-container__scroll-node-child {
-    background-color: #000000 !important;
-}
-
-/* Changes the background color of the home content to black */
-.main-home-content {
-    background-color: #000000 !important;
-}
 
 /* Makes the cards slightly darker with a transparent black background */
 .main-card-card {
@@ -59,11 +97,6 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
 /* Makes the cards even darker when hovering over them */
 .main-card-card:hover {
     background: rgba(24, 24, 24, 0.6) !important;
-}
-
-/* Changes the background color of the main view container to black */
-.Root__main-view {
-    background-color: #000;
 }
 
 /***************************** Customizing Fonts and Font Sizes ******************************/
@@ -78,10 +111,6 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
 }
 
 /***************************** Buddyfeed Customization ******************************/
-/* Changes the background color of the Buddyfeed container to black */
-.main-buddyFeed-container {
-    background-color: #000000;
-}
 
 /* Removes padding from the left and right sides of the Buddyfeed header */
 .main-buddyFeed-header {
@@ -95,47 +124,59 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
     background-color: transparent !important;
 }
 
-/***************************** Playlist and Tracklist Customization ******************************/
+/***************************** Playlist, Artist and Tracklist Customization ******************************/
 /* Changes the background color of the main entity header container to black */
-.main-entityHeader-container > div {
-    background: #000000 !important;
+.main-entityHeader-container:not(.main-entityHeader-withBackgroundImage) > div {
+    background: var(--spice-main) !important;
 }
 
-/* Changes the background color of the playlist content to black */
-.playlist-playlist-playlistContent > div {
-    background: #000;
+
+/* Add Gradient to Artist Banner */
+.main-entityHeader-withBackgroundImage {
+    background: linear-gradient(0deg, var(--spice-rgb-main) 0%, rgba(255,255,255,0) 80%) !important;
 }
+
+/* Remove title margins */
+.main-entityHeader-title > h1{
+    margin: 0px !important;
+}
+
 
 /* Changes the background color of the action bar to black */
 .main-actionBarBackground-background {
-    background: #000 !important;
+    background: var(--spice-main) !important;
 }
 
-/* Changes the background color of the tracklist header to black */
-.main-trackList-trackListHeader {
-    background: #000 !important;
+.main-entityHeader-detailsText.genre-container{
+    margin-top: -10px
+}
+
+/* hide "Artist Genres: " */
+.main-entityHeader-detailsText.genre-container > span{
+    display: none
 }
 
 /***************************** Top Bar and Now Playing View ******************************/
 /* Changes the background color of the top bar to black */
 .main-topBar-background {
-    background-color: #000 !important;
+    background: var(--spice-main)!important
 }
 
-/* Changes the background color of the now playing view to black */
+/* Changes the background color of the now playing view to black and set padding */
 .main-nowPlayingView-content {
-    background: #000 !important;
+    background: var(--spice-main)!important;
+    padding-right: 16px !important;
+}
+
+/* force nowplaying bg color */
+.main-buddyFeed-container{
+    background: var(--spice-main) !important;
 }
 
 /***************************** Your Library and Search Customization ******************************/
 /* Hides the "Your Library" icon in the sidebar */
 .main-yourLibraryX-collapseButton span {
     display: none !important;
-}
-
-/* Changes the background color of the search bar in the main view container to black */
-.main-view-container__scroll-node-child-spacer {
-    background: #000;
 }
 
 /* Adds padding to the left of the search input in the top bar */
@@ -168,6 +209,10 @@ span.Type__TypeElement-sc-goli3j-0.TypeElement-canon-type-draggable.main-entityH
 /* Removes left padding from the sidebar items in Your Library */
 .main-yourLibraryX-navItems {
     padding-left: 0px;
+}
+
+.Root__nav-bar{
+    background: var(--spice-main)
 }
 
 /***************************** Additional Customizations ******************************/
@@ -210,7 +255,6 @@ button[aria-label="Add Friends"] {
     padding-left: 8px !important;
 }
 
-
 .main-trackInfo-container{
     display: flex;
     flex-direction:column;
@@ -227,10 +271,6 @@ button[aria-label="Add Friends"] {
     overflow: hidden 
 }
 
-/*.main-nowPlayingWidget-trackInfo .main-trackInfo-genres{*/
-/*    order: -1 !important   */
-/* } */
-
 /* .main-trackInfo-container .main-trackInfo-name, */
 .main-trackInfo-container .main-trackInfo-enhanced{
     order: -1;
@@ -245,10 +285,4 @@ button[aria-label="Add Friends"] {
     opacity: 0.5;
     max-width: 100% !important;
     word-wrap: normal;   
-}
-
-.main-nowPlayingWidget-trackInfo + button,
-.main-nowPlayingWidget-trackInfo + button + div
-{
-    display: none !important
 }
