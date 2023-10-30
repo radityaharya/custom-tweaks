@@ -1,6 +1,14 @@
 
 # Jellyfin Tweaks
 
+
+<h2>Heads Up❗</h2>
+<strong>
+This theme is no longer maintained and there will be no updates until further notice. I have decided to focus on other projects and priorities for now. If you are using this theme, please be aware that it may not work well. I appreciate your support and feedback, but I cannot guarantee any assistance or bug fixes. Thank you for your understanding
+
+---
+</strong>
+<br></br>
 Custom theme and script for jellyfin
 
 ## Theme
